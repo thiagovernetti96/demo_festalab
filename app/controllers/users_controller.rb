@@ -2,9 +2,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
-  def index
-    @users = User.all
-  end
+  # app/controllers/users_controller.rb
+def index
+  @users = User.where("name LIKE ? OR email LIKE ? OR cpf LIKE ? OR phone LIKE ?", 
+  "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+end
+
 
   # GET /users/1 or /users/1.json
   def show
